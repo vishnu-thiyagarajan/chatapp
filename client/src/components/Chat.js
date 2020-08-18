@@ -13,8 +13,16 @@ import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import ReactEmoji from 'react-emoji';
+import Container from '@material-ui/core/Container';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
+    paper: {
+        marginTop: theme.spacing(2),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      },
     root: {
       height: '80vh',
       overflowY: 'auto',
@@ -30,7 +38,7 @@ const useStyles = makeStyles({
         },
         overflowWrap : "break-word",
     },
-  });
+  }));
 let socket;
 const BACKEND_URI = process.env.REACT_APP_BACKEND_URI;
 
@@ -74,9 +82,11 @@ function Chat({location}) {
     }
   return (
     <>
-    <Grid container direction="column" justify="center" alignItems="center" spacing={2}>
-      <Grid container item xs={12} justify="center" alignItems="center" spacing={2}>
-        <Grid item xs={5}>
+    <Container component="main" maxWidth="xs">
+    <CssBaseline />
+    <div className={classes.paper}>
+      <Grid container item xs={12} justify="center" alignItems="center" spacing={0}>
+        <Grid item xs={12}>
             <Grid container item xs={12}>
                 <Grid item xs>
                     <Typography variant="h4" color="textPrimary" gutterBottom>
@@ -110,8 +120,8 @@ function Chat({location}) {
             </Card>
         </Grid>
       </Grid>  
-      <Grid container item xs={12} justify="center" alignItems="center" spacing={2}>
-          <Grid item xs={4}>
+      <Grid container item xs={12} justify="center" alignItems="center" spacing={0}>
+          <Grid item xs={9}>
             <textarea
                 autoFocus
                 placeholder="Type a message..."
@@ -120,7 +130,7 @@ function Chat({location}) {
                 onChange={(event)=>setMessage(event.target.value)} 
                 onKeyPress={(event)=> event.key === 'Enter' ? sendMessage(event): null } />
           </Grid>
-          <Grid item xs={1}>
+          <Grid item xs={3}>
             <Button
                 variant="contained"
                 color="primary"
@@ -131,7 +141,8 @@ function Chat({location}) {
             </Button>
           </Grid>
       </Grid>
-    </Grid>
+      </div>
+      </Container>
     </>
   );
 }
